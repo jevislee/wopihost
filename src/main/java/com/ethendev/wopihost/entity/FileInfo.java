@@ -45,6 +45,10 @@ public class FileInfo implements Serializable {
     @JsonProperty("Version")
     private long version;
 
+    //文档最后修改时间
+    @JsonProperty("LastModifiedTime")
+    private String lastModifiedTime;
+
     /**
      * indicates a WOPI client may allow connections to external services referenced in the file
      */
@@ -170,6 +174,14 @@ public class FileInfo implements Serializable {
         this.userCanNotWriteRelative = userCanNotWriteRelative;
     }
 
+    public String getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(String lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
+    }
+
     @Override
     public String toString() {
         return "FileInfo{" +
@@ -178,6 +190,7 @@ public class FileInfo implements Serializable {
                 ", size=" + size +
                 ", sha256='" + sha256 + '\'' +
                 ", version=" + version +
+                ", lastModifiedTime=" + lastModifiedTime +
                 ", allowExternalMarketplace=" + allowExternalMarketplace +
                 ", userCanWrite=" + userCanWrite +
                 ", supportsUpdate=" + supportsUpdate +

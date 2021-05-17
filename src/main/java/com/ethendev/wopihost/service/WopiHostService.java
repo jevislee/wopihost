@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Handle wopi protocol requests
@@ -106,6 +109,15 @@ public class WopiHostService {
                 info.setSize(file.length());
                 info.setOwnerId("admin");
                 info.setVersion(file.lastModified());
+
+                //文档最后修改时间(北京时间转化为utc时间)
+                SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                Date t = new Date(file.lastModified());
+                df1.setTimeZone(TimeZone.getTimeZone("UTC"));
+                String s = df1.format(t);
+//                System.out.println("lastModifiedTime:" + s);
+                info.setLastModifiedTime(s);
+
                 info.setSha256(getHash256(file));
             } else {
                 return ResponseEntity.status(WopiStatus.NOT_FOUND.value()).build();
