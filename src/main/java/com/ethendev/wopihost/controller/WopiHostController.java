@@ -33,7 +33,7 @@ public class WopiHostController {
     /**
      * search a file from the host, return a file’s binary contents
      */
-    @GetMapping("/files/{name}/contents")
+    @GetMapping("/files/report/{name}/contents")
     public void getFile(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
         if(checkAccessToken(request)) {
             wopiHostService.getFile(decode(name), response);
@@ -45,7 +45,7 @@ public class WopiHostController {
     /**
      * The postFile operation updates a file’s binary contents.
      */
-    @PostMapping("/files/{name}/contents")
+    @PostMapping("/files/report/{name}/contents")
     public void postFile(@PathVariable(name = "name") String name, @RequestBody byte[] content,
                          HttpServletRequest request, HttpServletResponse response) {
         if(checkAccessToken(request)) {
@@ -59,7 +59,7 @@ public class WopiHostController {
      * returns information about a file, a user’s permissions on that file,
      * and general information about the capabilities that the WOPI host has on the file.
      */
-    @GetMapping("/files/{name}")
+    @GetMapping("/files/report/{name}")
     public ResponseEntity<FileInfo> checkFileInfo(@PathVariable(name = "name") String name, HttpServletRequest request) throws Exception {
         if(checkAccessToken(request)) {
             return wopiHostService.getFileInfo(decode(name));
@@ -71,7 +71,7 @@ public class WopiHostController {
     /**
      * Handling lock related operations
      */
-    @PostMapping("/files/{name}")
+    @PostMapping("/files/report/{name}")
     public ResponseEntity handleLock(@PathVariable(name = "name") String name, HttpServletRequest request) {
         if(checkAccessToken(request)) {
             return wopiHostService.handleLock(decode(name), request);
